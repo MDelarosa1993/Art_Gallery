@@ -18,9 +18,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install dockerize
-          command: curl -L https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-linux-amd64-v0.6.1.tar.gz | tar -xz -C /usr/local/bin
-      - run:
           name: Install dependencies
           command: bundle install --path vendor/bundle
       - run:
