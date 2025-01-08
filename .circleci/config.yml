@@ -18,9 +18,12 @@ jobs:
       - checkout
       - run:
           name: Install dependencies
-          command: bundle install --path vendor/bundle
+          command: bundle config set path 'vendor/bundle' && bundle install
       - run:
-          name: Database setup
+          name: Wait for database
+          command: dockerize -wait tcp://localhost:5432 -timeout 60s
+      - run:
+          name: Setup database
           command: bundle exec rake db:create db:migrate
       - run:
           name: Run tests
@@ -30,3 +33,4 @@ workflows:
   build-and-test:
     jobs:
       - test
+
