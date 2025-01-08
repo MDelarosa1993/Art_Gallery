@@ -7,7 +7,8 @@ jobs:
   test-ruby:
     docker:
       - image: cimg/ruby:3.2-node
-      - image: circleci/postgres:13-alpine
+      - image: circleci/postgres:9.5-alpine
+
         environment:
           POSTGRES_USER: postgres
           POSTGRES_DB: art_gallery_test
