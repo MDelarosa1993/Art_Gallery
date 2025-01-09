@@ -2,7 +2,10 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :auth, only: [:create]
-      resources :users
+      resources :users do 
+        resources :artworks
+        resources :orders
+      end
     end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
