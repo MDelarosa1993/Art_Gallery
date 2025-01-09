@@ -6,6 +6,10 @@ Rails.application.routes.draw do
         resources :artworks
         resources :orders
       end
+      namespace :admin do
+        resources :users, only: [:index]
+        resources :orders, only: [:index]
+      end
     end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
