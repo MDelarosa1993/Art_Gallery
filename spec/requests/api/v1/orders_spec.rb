@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "Api::V1::Orders", type: :request do
   describe "GET /create" do
-    it "creates a order for a user" do
-      user = User.create!(name: "Mel", email: "mel@example.com", password: "melchor08", role: :artist)
+    it "creates a order for a buyer" do
+      user = User.create!(name: "Mel", email: "mel@example.com", password: "melchor08", role: :buyer)
 
       post "/api/v1/auth", params: { email: user.email, password: user.password }
       
@@ -27,7 +27,7 @@ RSpec.describe "Api::V1::Orders", type: :request do
       }
 
       post "/api/v1/users/#{user.id}/orders", params: order_params, headers: { "Authorization" => "Bearer #{token}" }, as: :json
-
+      require 'pry'; binding.pry
       order = JSON.parse(response.body, symbolize_names: true)
       
       expect(order[:id]).to be_an(Integer)

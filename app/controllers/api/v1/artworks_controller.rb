@@ -1,5 +1,6 @@
 class Api::V1::ArtworksController < ApplicationController
   before_action :authenticate_user
+  before_action :authorize_artist
   
   def index
     artworks = @current_user.artworks 
@@ -31,6 +32,12 @@ class Api::V1::ArtworksController < ApplicationController
       @current_user = User.find(user_id)
     rescue JWT::DecodeError
       render json: { error: 'Invalid token' }, status: :unauthorized
+    end
+  end
+
+  def authorize_artist
+    unless @current_user&.artist?
+      render json: { error: 'Access forbidden: Artists only' }, status: :forbidden
     end
   end
 end

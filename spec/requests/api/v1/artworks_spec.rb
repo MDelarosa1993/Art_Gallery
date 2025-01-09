@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Api::V1::Artworks", type: :request do
   describe "GET/index" do 
-    it "retreives a list of artwork" do 
+    it "retrieves a list of artwork for an artist" do 
       user = User.create!(name: "Mel", email: "mel@example.com", password: "melchor08", role: :artist)
 
       post "/api/v1/auth", params: { email: user.email, password: user.password }
@@ -38,7 +38,7 @@ RSpec.describe "Api::V1::Artworks", type: :request do
   end
 
   describe "POST/create" do 
-    it "creates artwork for a user" do 
+    it "creates artwork for an artist" do 
       user = User.create!(name: "Mel", email: "mel@example.com", password: "melchor08", role: :artist)
 
       post "/api/v1/auth", params: { email: user.email, password: user.password }

@@ -1,6 +1,7 @@
 class Api::V1::OrdersController < ApplicationController
   before_action :authenticate_user
-
+  before_action :authorize_buyer
+  
   def create
     order = @current_user.orders.new(order_params)
     if order.save
@@ -26,6 +27,12 @@ class Api::V1::OrdersController < ApplicationController
       @current_user = User.find(user_id)
     rescue JWT::DecodeError
       render json: { error: 'Invalid token' }, status: :unauthorized
+    end
+  end
+
+  def authorize_buyer
+    unless @current_user&.buyer?
+      render json: { error: 'Access forbidden: Buyers only' }, status: :forbidden
     end
   end
 end
