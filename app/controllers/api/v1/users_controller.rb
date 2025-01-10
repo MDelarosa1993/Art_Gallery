@@ -2,9 +2,9 @@ class Api::V1::UsersController < ApplicationController
   def create
     user = User.new(user_params)
     if user.save 
-      render json: { message: "User created!!", user: user}, status: :created
+      render json: { message: "User created!!", user: UserSerializer.new(user)}, status: :created
     else
-      render json: { errors: user.errors.full_messages}, status: :unprocessable_entity
+      render json: ErrorSerializer.format_error(ErrorMessage.new(user.errors.full_messages, 422)), status: :unprocessable_entity
     end
   end
 
