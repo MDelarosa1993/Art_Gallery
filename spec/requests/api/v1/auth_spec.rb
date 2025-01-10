@@ -9,16 +9,15 @@ RSpec.describe "Api::V1::Auths", type: :request do
       expect(response).to be_successful
 
       jwt = JSON.parse(response.body, symbolize_names: true)
-      # require 'pry'; binding.pry
+      
       expect(jwt[:token]).to be_a(String)
-      expect(jwt[:user]).to be_an(Hash)
-      expect(jwt[:user][:id]).to be_a(Integer)
-      expect(jwt[:user][:name]).to be_a(String)
-      expect(jwt[:user][:email]).to be_a(String)
-      expect(jwt[:user][:password_digest]).to be_a(String)
-      expect(jwt[:user][:role]).to be_a(String)
-      expect(jwt[:user][:created_at]).to be_a(String)
-      expect(jwt[:user][:updated_at]).to be_a(String)
+      expect(jwt[:user][:data]).to be_an(Hash)
+      expect(jwt[:user][:data][:id]).to be_a(String)
+      expect(jwt[:user][:data][:type]).to be_a(String)
+      expect(jwt[:user][:data][:attributes][:name]).to be_a(String)
+      expect(jwt[:user][:data][:attributes][:email]).to be_a(String)
+      expect(jwt[:user][:data][:attributes][:password]).to be_nil
+      expect(jwt[:user][:data][:attributes][:role]).to be_a(String)
     end
   end
 end

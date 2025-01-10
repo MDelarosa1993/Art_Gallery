@@ -5,7 +5,7 @@ class Api::V1::Admin::UsersController < ApplicationController
   def index
     artists = User.artist
     buyers = User.buyer
-    render json: { artists: artists, buyers: buyers }, status: :ok
+    render json: { artists: UserSerializer.new(artists), buyers: UserSerializer.new(buyers) }, status: :ok
   end
 
   private

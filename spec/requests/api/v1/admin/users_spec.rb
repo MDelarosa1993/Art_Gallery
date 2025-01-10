@@ -24,20 +24,17 @@ RSpec.describe "Api::V1::Admin::Users", type: :request do
 
       user_role_info = JSON.parse(response.body, symbolize_names: true)
       
-      expect(user_role_info[:artists][0][:id]).to be_an(Integer)
-      expect(user_role_info[:artists][0][:name]).to be_a(String)
-      expect(user_role_info[:artists][0][:email]).to be_a(String)
-      expect(user_role_info[:artists][0][:password_digest]).to be_a(String)
-      expect(user_role_info[:artists][0][:role]).to be_a(String)
-      expect(user_role_info[:artists][0][:created_at]).to be_a(String)
-      expect(user_role_info[:artists][0][:updated_at]).to be_a(String)
-      expect(user_role_info[:buyers][0][:id]).to be_an(Integer)
-      expect(user_role_info[:buyers][0][:name]).to be_a(String)
-      expect(user_role_info[:buyers][0][:email]).to be_a(String)
-      expect(user_role_info[:buyers][0][:password_digest]).to be_a(String)
-      expect(user_role_info[:buyers][0][:role]).to be_a(String)
-      expect(user_role_info[:buyers][0][:created_at]).to be_a(String)
-      expect(user_role_info[:buyers][0][:updated_at]).to be_a(String)
+      expect(user_role_info[:artists][:data][0][:id]).to be_a(String)
+      expect(user_role_info[:artists][:data][0][:attributes][:name]).to be_a(String)
+      expect(user_role_info[:artists][:data][0][:attributes][:email]).to be_a(String)
+      expect(user_role_info[:artists][:data][0][:attributes][:password]).to be_nil 
+      expect(user_role_info[:artists][:data][0][:attributes][:role]).to be_a(String)
+
+      expect(user_role_info[:buyers][:data][0][:id]).to be_a(String)
+      expect(user_role_info[:buyers][:data][0][:attributes][:name]).to be_a(String)
+      expect(user_role_info[:buyers][:data][0][:attributes][:email]).to be_a(String)
+      expect(user_role_info[:buyers][:data][0][:attributes][:password]).to be_nil
+      expect(user_role_info[:buyers][:data][0][:attributes][:role]).to be_a(String)
     end
   end
 end
