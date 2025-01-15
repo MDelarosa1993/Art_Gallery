@@ -1,6 +1,11 @@
 class Api::V1::OrdersController < ApplicationController
   before_action :authenticate_user
   before_action :authorize_buyer
+
+  def index
+    orders = @current_user.orders
+    render json: orders.as_json(include: :order_items), status: :ok
+  end
   
   def create
     order = @current_user.orders.new(order_params)

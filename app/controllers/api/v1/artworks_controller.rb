@@ -3,7 +3,11 @@ class Api::V1::ArtworksController < ApplicationController
   before_action :authorize_artist
   
   def index
-    artworks = @current_user.artworks 
+    artworks = if @current_user.artist?
+                 @current_user.artworks
+               else
+                 Artwork.all
+               end
     render json: artworks, status: :ok
   end
 
