@@ -1,13 +1,14 @@
 class Api::V1::ArtworksController < ApplicationController
   before_action :authenticate_user
-  before_action :authorize_artist
+  before_action :authorize_artist, except: :browse  
+
+  def browse 
+    artworks = Artwork.all 
+    render json: artworks
+  end
   
   def index
-    artworks = if @current_user.artist?
-                 @current_user.artworks
-               else
-                 Artwork.all
-               end
+    artworks = @current_user.artworks
     render json: artworks, status: :ok
   end
 

@@ -2,6 +2,11 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :auth, only: [:create]
+      resources :artworks, only: [:index] do
+        collection do
+          get :browse
+        end
+      end
       resources :users do 
         resources :artworks
         resources :orders
